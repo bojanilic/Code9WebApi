@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Countries</title>
+    <meta charset="utf-8"/>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-4">
+        <h2>Countries</h2>
+        <table id="countries" class="table table-striped">
+            <thead><tr><td>Id</td><td>Name</td><td>Currency</td><td></td></tr></thead>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <h2>Add new item</h2>
+        <form id="form1" method="post" action="api/countries"
+              enctype="application/x-www-form-urlencoded">
+            <div>
+                <label for="Name">Name</label>
+            </div>
+            <div>
+                <input name="Name" type="text" />
+            </div>
+            <div>
+                <label for="Currency">Currency</label>
+            </div>
+            <div>
+                <input name="Currency" type="text" />
+            </div>
+            <div>
+                <input type="submit" value="Submit" />
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        getData();
+    });
+
+    function getData() {
+        var trHtml = '';
+        // Send an AJAX request
+        $.getJSON('api/countries')
+          .done(function (data) {
+              $.each(data, function (key, item) {
+                  trHtml += '<tr><td>' + item.ID + '</td><td>' + item.Name + '</td><td>' + item.Currency + '</td>' +
+                        '<td><input type="button" value="Delete country" onclick="deleteCountry(' + item.ID + ')"></td></tr>'
+              });
+              $('#countries').append(trHtml);
+          });
+    }
+
+    $("#form1").submit(function () {
+        $.post('api/countries', $('#form1').serialize())
+            .success(function () {
+                $('#countries tbody').html('');
+                getData();
+            });
+        return false;
+    });
+
+    function deleteCountry(id) {
+        $.ajax({
+            url: 'api/countries/' + id,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                $('#countries tbody').html('');
+                getData();
+            }
+        });
+    }
+    </script>
+</body>
+</html>
