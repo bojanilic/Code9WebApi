@@ -60,4 +60,3 @@ W:\Code9\Code9WebApi\Code9WebApi\bin\System.Web.Http.xml
 W:\Code9\Code9WebApi\Code9WebApi\bin\System.Web.Http.WebHost.xml
 W:\Code9\Code9WebApi\Code9WebApi\obj\Debug\Code9WebApi.dll
 W:\Code9\Code9WebApi\Code9WebApi\obj\Debug\Code9WebApi.pdb
-W:\Code9\Code9WebApi\Code9WebApi\obj\Debug\Code9WebApi.csprojResolveAssemblyReference.cache
